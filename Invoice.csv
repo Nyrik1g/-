@@ -1,0 +1,64 @@
+using System;
+using System.Collections.Generic;
+
+public class Item
+{
+    public string Название { get; set; }
+    public double Цена { get; set; }
+}
+
+public class Invoice
+{
+    public int Id { get; set; }
+    public List<Item> Items { get; set; }
+    public double TaxRate { get; set; }
+
+    public Invoice(int id, List<Item> items, double taxRate)
+    {
+        Id = id;
+        Items = items;
+        TaxRate = taxRate;
+    }
+}
+
+public class InvoiceCalculator
+{
+    public double РассчитатьОбщуюСумму(Invoice invoice)
+    {
+        double подытог = 0;
+        foreach (var item in invoice.Items)
+        {
+            подытог += item.Цена;
+        }
+        return подытог + (подытог * invoice.TaxRate);
+    }
+}
+
+public class InvoiceRepository
+{
+    public void СохранитьСчетВБазу(Invoice invoice)
+    {
+        Console.WriteLine($"Счет с ID {invoice.Id} сохранен в базу данных.");
+    }
+}
+
+public class Program
+{
+    public static void Main(string[] args)
+    { 
+        List<Item> товары = new List<Item>
+        {
+            new Item { Название = "Телевизор", Цена = 500.0 },
+            new Item { Название = "Ноутбук", Цена = 1200.0 }
+        };
+ 
+        Invoice счет = new Invoice(1, товары, 0.15);
+ 
+        InvoiceCalculator калькулятор = new InvoiceCalculator();
+        double общаяСумма = калькулятор.РассчитатьОбщуюСумму(счет);
+        Console.WriteLine($"Общая сумма счета: {общаяСумма}");
+ 
+        InvoiceRepository репозиторий = new InvoiceRepository();
+        репозиторий.СохранитьСчетВБазу(счет);
+    }
+}
