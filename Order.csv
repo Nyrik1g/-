@@ -2,57 +2,62 @@ using System;
 
 public class Order
 {
-    public string ProductName { get; set; }
-    public int Quantity { get; set; }
-    public double Price { get; set; }
+    public string НазваниеПродукта { get; set; }
+    public int Количество { get; set; }
+    public double Цена { get; set; }
 
-    public Order(string productName, int quantity, double price)
+    
+    public Order(string названиеПродукта, int количество, double цена)
     {
-        ProductName = productName;
-        Quantity = quantity;
-        Price = price;
+        НазваниеПродукта = названиеПродукта;
+        Количество = количество;
+        Цена = цена;
     }
 }
- 
+
+
 public class OrderCalculator
 {
-    public double CalculateTotalPrice(Order order)
+    
+    public double РассчитатьОбщуюСумму(Order order)
     { 
-        return order.Quantity * order.Price * 0.9;
+        return order.Количество * order.Цена * 0.9;
     }
 }
- 
+
+
 public class PaymentProcessor
 {
-    public void ProcessPayment(string paymentDetails)
 
+    public void ОбработатьПлатеж(string деталиПлатежа)
     { 
-        Console.WriteLine("Payment processed using: " + paymentDetails);
+        Console.WriteLine("Платеж обработан с использованием: " + деталиПлатежа);
     }
 } 
 
 public class NotificationService
-{
-    public void SendConfirmationEmail(string email)
+{ 
+
+    public void ОтправитьПодтверждениеНаEmail(string email)
     { 
-        Console.WriteLine("Confirmation email sent to: " + email);
+        Console.WriteLine("Подтверждение отправлено на: " + email);
     }
 }
 
 public class Program
 {
     public static void Main(string[] args)
-    { 
-        Order order = new Order("Laptop", 2, 1500.0);
+    {  
+        Order заказ = new Order("Ноутбук", 2, 1500.0);
  
-        OrderCalculator calculator = new OrderCalculator();
-        double totalPrice = calculator.CalculateTotalPrice(order);
-        Console.WriteLine("Total price: " + totalPrice);
+        OrderCalculator калькулятор = new OrderCalculator();
+        double общаяСумма = калькулятор.РассчитатьОбщуюСумму(заказ);
+        Console.WriteLine("Общая сумма: " + общаяСумма);
  
-        PaymentProcessor paymentProcessor = new PaymentProcessor();
-        paymentProcessor.ProcessPayment("Credit Card");
+        PaymentProcessor обработчикПлатежей = new PaymentProcessor();
+        обработчикПлатежей.ОбработатьПлатеж("Кредитная карта");
  
-        NotificationService notificationService = new NotificationService();
-        notificationService.SendConfirmationEmail("user@example.com");
+        NotificationService уведомление = new NotificationService();
+        уведомление.ОтправитьПодтверждениеНаEmail("user@example.com");
     }
 }
