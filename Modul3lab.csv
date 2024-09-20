@@ -1,0 +1,82 @@
+public class OrderService
+{
+    public void ProcessOrder(string productName, int quantity, double price, bool isUpdate = false)
+    {
+        double totalPrice = quantity * price;
+        string action = isUpdate ? "updated" : "created";
+        Console.WriteLine($"Order for {productName} {action}. Total: {totalPrice}");
+    }
+
+    public void CreateOrder(string productName, int quantity, double price)
+    {
+        ProcessOrder(productName, quantity, price);
+    }
+
+    public void UpdateOrder(string productName, int quantity, double price)
+    {
+        ProcessOrder(productName, quantity, price, true);
+    }
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+public abstract class Vehicle
+{
+    public void Start()
+    {
+        Console.WriteLine($"{GetType().Name} is starting");
+    }
+
+    public void Stop()
+    {
+        Console.WriteLine($"{GetType().Name} is stopping");
+    }
+}
+
+public class Car : Vehicle { }
+
+public class Truck : Vehicle { }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+public class Calculator
+{
+    public void Add(int a, int b)
+    {
+        Console.WriteLine(a + b);
+    }
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+public class Circle
+{
+    private double _radius;
+
+    public Circle(double radius)
+    {
+        _radius = radius;
+    }
+
+    public double CalculateArea()
+    {
+        return Math.PI * _radius * _radius;
+    }
+}
+
+public class Square
+{
+    private double _side;
+
+    public Square(double side)
+    {
+        _side = side;
+    }
+
+    public double CalculateArea()
+    {
+        return _side * _side;
+    }
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+public class MathOperations
+{
+    public int Add(int a, int b)
+    {
+        return a + b;
+    }
+}
