@@ -1,0 +1,77 @@
+using System;
+using System.Collections.Generic;
+
+public interface IDiscountStrategy
+{
+    double РассчитатьСкидку(double сумма);
+}
+
+public class ОбычныйКлиентСкидка : IDiscountStrategy
+{
+    public double РассчитатьСкидку(double сумма)
+    {
+        return сумма;
+    }
+}
+
+public class СеребряныйКлиентСкидка : IDiscountStrategy
+{
+    public double РассчитатьСкидку(double сумма)
+    {
+        return сумма * 0.9;
+    }
+}
+
+public class ЗолотойКлиентСкидка : IDiscountStrategy
+{
+    public double РассчитатьСкидку(double сумма)
+    {
+        return сумма * 0.8;
+    }
+}
+
+public class ПлатиновыйКлиентСкидка : IDiscountStrategy
+{
+    public double РассчитатьСкидку(double сумма)
+    {
+        return сумма * 0.75;
+    }
+}
+
+public class КалькуляторСкидки
+{
+    private IDiscountStrategy _стратегияСкидки;
+
+    public КалькуляторСкидки(IDiscountStrategy стратегияСкидки)
+    {
+        _стратегияСкидки = стратегияСкидки;
+    }
+
+    public double РассчитатьСкидку(double сумма)
+    {
+        return _стратегияСкидки.РассчитатьСкидку(сумма);
+    }
+}
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        List<IDiscountStrategy> стратегииСкидок = new List<IDiscountStrategy>
+        {
+            new ОбычныйКлиентСкидка(),
+            new СеребряныйКлиентСкидка(),
+            new ЗолотойКлиентСкидка(),
+            new ПлатиновыйКлиентСкидка()
+        };
+
+        double сумма = 1000.0;
+
+        foreach (var стратегия in стратегииСкидок)
+        {
+            КалькуляторСкидки калькулятор = new КалькуляторСкидки(стратегия);
+            double итоговаяСумма = калькулятор.РассчитатьСкидку(сумма);
+            Console.WriteLine($"Итоговая сумма со скидкой: {итоговаяСумма}");
+        }
+    }
+}
